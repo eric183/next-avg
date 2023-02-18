@@ -1,7 +1,3 @@
-## Getting Started
+## The mind pic
 
-Run the development server:
-
-```bash
-yarn create next-app -e https://github.com/eric183/eric-next-ts-template
-```
+![Alt text](./public/avg-data-structure.png)
