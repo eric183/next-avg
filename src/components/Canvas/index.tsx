@@ -63,6 +63,10 @@ const CoinApp = ({ containerRef }: any) => {
         const threeInfo: string = localStorage.getItem("threeInfo")!;
         const cameraHistory = JSON.parse(threeInfo);
 
+        camera.rotation.fromArray([
+          -3.271702678108735e-32, 1.184517280015184, 2.0835417594699634e-16,
+        ]);
+
         if (cameraHistory) {
           camera.position.fromArray(cameraHistory.position);
           camera.rotation.fromArray(cameraHistory.rotation);
