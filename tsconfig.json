@@ -14,12 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "allowSyntheticDefaultImports": true,
+
     "paths": {
       "~/*": ["./src/*"],
       "types/*": ["./types/*"],
       "public/*": ["./public/*"]
-    }
+    },
+    "typeRoots": [],
   },
-  "include": [".eslintrc.*","next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": [".eslintrc.*","next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "src/components/Canvas"],
   "exclude": ["node_modules", ".next"]
 }

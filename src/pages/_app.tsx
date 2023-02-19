@@ -24,7 +24,7 @@ export default function MyApp({ Component, pageProps }: any) {
       })
   );
 
-  console.log(ChainId.Mainnet);
+  // console.log(ChainId.Mainnet);
   return (
     <ThirdwebProvider desiredChainId={ChainId.Mainnet}>
       <QueryClientProvider client={queryClient}>

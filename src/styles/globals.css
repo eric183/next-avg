@@ -19,6 +19,7 @@ a {
   box-sizing: border-box;
 }
 
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -26,4 +27,96 @@ a {
   body {
     color: white;
   }
+} */
+
+
+/* 隱藏默認滾動條 */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* 設置滾動條寬度和顏色 */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+/* 設置滾動條滑塊樣式 */
+body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+/* 設置滾動條軌道樣式 */
+body::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* 設置滾動條角落樣式 */
+body::-webkit-scrollbar-corner {
+  background-color: #f1f1f1;
+}
+
+/* 隱藏默認滾動條 */
+.ios-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 設置滾動條寬度和顏色 */
+.ios-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+/* 設置滾動條滑塊樣式 */
+.ios-scroll::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+/* 設置滾動條軌道樣式 */
+.ios-scroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* 設置滾動條角落樣式 */
+.ios-scroll::-webkit-scrollbar-corner {
+  background-color: #f1f1f1;
+}
+
+.content-embed {
+  position: relative;
+  background: #fff;
+  width: 194px;
+  height: 115px;
+  overflow: auto;
+  /* border-radius: 5px; */
+  /* border-radius: 3px; */
+  /* margin-bottom: 27px; */
+}
+
+/* .content-embed p {
+  color: white;
+} */
+
+div:has(> .content-embed) {
+  border-radius: 50px;
+}
+
+.content-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.chat-container {
+  z-index: 9999999;
+
+  /* TO-FIX */
+}
+/* canvas {
+  position: absolute;
+  z-index: 1;
 } */

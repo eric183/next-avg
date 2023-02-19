@@ -33,6 +33,7 @@ export default class AppDocument extends Document {
       <Html>
         <Head />
         <body>
+          {/* <div id="join"></div> */}
           <Main />
           <NextScript />
         </body>

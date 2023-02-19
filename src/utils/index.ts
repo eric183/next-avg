@@ -36,4 +36,14 @@ const d100 = new Die(100);
 d100.roll(0);
 console.log(d100.value); // 输出一个 1 到 100 的随机数
 
-export { getRandomInt, dieRool };
+const sliceObject = (array: any[], from: number, to: number) => {
+  const new_object: any = {};
+  Object.entries(array)
+    .slice(from, to)
+    .forEach((o: any[]) => {
+      new_object[o[0]] = o[1];
+    });
+  return new_object;
+};
+
+export { getRandomInt, dieRool, sliceObject };
