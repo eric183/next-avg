@@ -1,77 +1,85 @@
 export {};
 
-interface GameState {
-  currentLevelId: string;
-  level: Pick<Level, id>;
-  players: Character[];
-  scene: Pick<Scene, id>;
+declare global {
+  interface GameState {
+    currentLevelId: number;
+    level: Pick<Level, id>;
+    players: Character[];
+    scene: Pick<Scene, id>;
 
-  timeLine: Pick<TimeLine, id>;
-}
+    timeLine: Pick<TimeLine, id>;
+  }
 
-interface Level {
-  id: string;
-  effect: Effect;
-  timeLines: TimeLine[];
-}
+  interface Level {
+    id: number;
+    effect: Effect;
+    timeLines: TimeLine[];
+  }
 
-interface Player {
-  position: Vector2D | Vector3D;
-  character: Character;
-  motion: string;
-  extra: any;
-}
+  interface Player {
+    position: Vector2D | Vector3D;
+    character: Character;
+    motion: string;
+    extra: any;
+  }
 
-interface Text {
-  id: string;
-  content: string;
-  ownner: Character | System;
+  // interface DialogueType {
+  //   id?: number; // increments
+  //   text: string[];
+  //   ownner: number | "System";
 
-  extra: any;
-}
+  //   extra?: any;
+  // }
 
-interface Character {
-  id: string;
-  name: string;
-  state: "online" | "offline";
-  type: "3D" | "2D";
-  motions: array;
-  extra: any;
-}
+  type ExpressionType = "angry" | "fun" | "sorrow" | "joy" | "surprised";
+  interface CharacterType {
+    id: number;
+    name: string;
+    state: "online" | "offline";
+    type: "3D" | "2D";
+    expression: ExpressionType;
+    role: string;
+    source: string;
+    extra?: any;
+  }
 
-interface Item {
-  id: string;
-  name: string;
-  ownners: Character[];
-}
+  interface ItemType {
+    id: number;
+    name: string;
+    ownners: number[]; //Pick<CharacterType, "id">[]
+  }
 
-interface Scene {
-  id: string;
-  type: "image" | "realTime";
-  source: string;
+  //tofixed: source?: "/" + sring
+  interface SceneType {
+    id?: number;
+    type: "image" | "realTime";
+    source?: sring | "vector2D" | "vector3D";
+    event?: "changeMap" | "changeVector";
+    extra?: any;
+  }
 
-  extra: any;
-}
+  export type TimeLineEventType =
+    | "character"
+    | "animation"
+    | "branch"
+    | "Dialogue";
+  interface TimeLineType {
+    id?: number; // increment
+    ownner?: string | number | "system";
+    animation?: Animation;
+    branch?: Branch[];
+    scene?: SceneType;
+    text?: string[];
+    expression?: ExpressionType;
+  }
 
-interface TimeLine {
-  id: string;
-  events:
-    | {
-        charactInfos: {
-          side: "left";
-        };
-      }
-    | Animation[]
-    | Branch[]
-    | Texts[];
-}
+  interface Branch {
+    id?: number;
+    text: string;
+    result: any[];
+  }
 
-interface Branch {
-  id: string;
-  text: string;
-  trigger: function;
-}
-
-interface Effect {
-  id: string;
+  interface Effect {
+    id: number;
+  }
 }
