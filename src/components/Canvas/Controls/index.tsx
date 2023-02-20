@@ -7,6 +7,7 @@ import { Camera, useFrame, useThree } from "@react-three/fiber";
 import { button, useControls } from "leva";
 import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
+  Euler,
   Matrix4,
   PerspectiveCamera,
   Quaternion,
@@ -29,6 +30,9 @@ const Controls: FC<{
       options: ["translate", "rotate", "scale"],
     },
     openCamerationRotation: false,
+    getCamera: button(() => {
+      console.log(threeInstance.camera);
+    }),
     set: button(() => {
       localStorage.setItem(
         "threeInfo",
@@ -55,16 +59,21 @@ const Controls: FC<{
     }),
   });
   const setCameraRotation = (event: any) => {
-    if (!openCamerationRotation) {
-      return;
-    }
-
     if (!event.ctrlKey) {
-      threeInstance.camera.rotation.y -= event.movementX / 500;
-      threeInstance.camera.rotation.x -= event.movementY / 500;
+      const euler = new Euler(0, 0, 0, "YXZ");
+      euler.setFromQuaternion(threeInstance.camera.quaternion);
+      euler.y -= event.movementX / 500;
+      euler.x -= event.movementY / 500;
+      euler.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, euler.x));
+
+      threeInstance.camera.setRotationFromEuler(euler);
       return;
     }
-    threeInstance.camera.rotation.x = 0;
+    const euler = new Euler(0, 0, 0, "YXZ").setFromQuaternion(
+      threeInstance.camera.quaternion
+    );
+    euler.x = 0;
+    threeInstance.camera.setRotationFromEuler(euler);
   };
 
   useLayoutEffect(() => {

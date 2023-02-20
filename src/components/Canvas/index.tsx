@@ -6,12 +6,13 @@ import Lights from "./Lights";
 import Controls from "./Controls";
 import Meshes from "./Meshes";
 import { Effects } from "./Effects";
-import SceneRig from "./SceneRig";
 import ReflectorPlane from "./Meshes/plane";
 import { Physics } from "@react-three/cannon";
 import { instancedGeometry } from "./Meshes/instanceBoxes";
-import { useMemo, useRef, useState } from "react";
-import { Color } from "three";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Color, Matrix4 } from "three";
+import { Background, SceneRig } from "./Scene";
+import { Girl } from "./Meshes/glbModule";
 
 export const useStore = create((set: any) => ({
   target: null,
@@ -41,6 +42,9 @@ const CoinApp = ({ containerRef }: any) => {
   );
 
   const InstancedGeometry = useMemo(() => instancedGeometry.box, []);
+
+  const GirlRef = useRef<any>(null!);
+
   return (
     <Canvas
       gl={{
@@ -54,7 +58,7 @@ const CoinApp = ({ containerRef }: any) => {
       eventPrefix="client"
       eventSource={containerRef}
       camera={{
-        position: [2.3301706037513576, 3.963075460128521, 2.2746870944948694],
+        position: [-0.5, 0.8, 3],
         fov: 45,
         near: 1,
         far: 1000,
@@ -63,6 +67,11 @@ const CoinApp = ({ containerRef }: any) => {
         const threeInfo: string = localStorage.getItem("threeInfo")!;
         const cameraHistory = JSON.parse(threeInfo);
 
+        // camera.quaternion.fromArray(cameraHistory.quaternion);
+        // camera.setRotationFromMatrix(
+        //   new Matrix4().fromArray(cameraHistory.matrix)
+        // );
+        return;
         camera.rotation.fromArray([
           -3.271702678108735e-32, 1.184517280015184, 2.0835417594699634e-16,
         ]);
@@ -75,22 +84,25 @@ const CoinApp = ({ containerRef }: any) => {
     >
       <color attach="background" args={["black"]} />
       {/* <fog attach="fog" args={["#000", 5, 100]} /> */}
+      <Background source="/images/sakura_temple.pngsdd" />
 
       <Lights />
 
-      <Meshes portal={containerRef} />
+      <Girl position={[0, 0, 0]} ref={GirlRef} />
+
+      {/* <Meshes portal={containerRef} /> */}
       <Physics>
         <ReflectorPlane position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-        <InstancedGeometry {...{ colors, number, size }} />
-        <InstancedGeometryController {...{ colors, number, size }} />
+        {/* <InstancedGeometry {...{ colors, number, size }} /> */}
+        {/* <InstancedGeometryController {...{ colors, number, size }} /> */}
       </Physics>
 
       <Controls target={target} />
 
       <Preload all />
 
-      {/* <SceneRig />
-      <Effects /> */}
+      <SceneRig girlRef={GirlRef} />
+      <Effects />
       <BakeShadows />
     </Canvas>
   );

@@ -9,6 +9,7 @@ import { useThree } from "@react-three/fiber";
 import { useControls } from "leva";
 import {
   ChangeEvent,
+  forwardRef,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -27,7 +28,7 @@ import { sliceObject } from "~/utils";
 import { useStore } from "..";
 import { CelShader } from "../Shader/CelShader";
 
-const Girl = (props: any) => {
+const Girl = forwardRef((props: any, ref: any) => {
   // const { scene, materials } = useGLTF("/coin-pusher.glb");
 
   const { camera } = useThree();
@@ -39,7 +40,6 @@ const Girl = (props: any) => {
   const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [nextClipIndex, setNextClipIndex] = useState(1);
   const [transitionTime, setTransitionTime] = useState(0);
-
   const [, set] = useControls(() => ({
     angry: {
       value: 0.5,
@@ -116,8 +116,10 @@ const Girl = (props: any) => {
   }, [actions, clips, currentClipIndex]);
 
   return (
-    <group ref={animationGroup}>
+    <group>
       <primitive
+        ref={ref}
+        name="girl"
         object={scene}
         {...props}
         // onClick={(e) => props.setTarget(e.object)}
@@ -126,7 +128,8 @@ const Girl = (props: any) => {
       />
     </group>
   );
-};
+});
+Girl.displayName = "Girl";
 
 // const { scene, materials } = useGLTF("/coin-pusher.glb");
 const Room = (props: any) => {
@@ -151,7 +154,6 @@ const Room = (props: any) => {
 
   return (
     <group onClick={(e) => console.log(e)}>
-      {/* <PivotControls annotations> */}
       <group>
         <Clone object={nodes["chair_1"]}>
           <meshToonMaterial color="red" />

@@ -16,7 +16,7 @@ export default function Home() {
   const containerRef = useRef<any>();
   return (
     <IndexLayout
-      className="content-container w-[100vw] h-[100vh] flex flex-col relative"
+      className="content-container w-[100vw] h-[100vh] flex flex-col relative overflow-hidden"
       ref={containerRef}
     >
       <Suspense fallback={null}>

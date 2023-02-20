@@ -77,7 +77,7 @@ const Controller = ({ colors, number, size }: InstancedGeometryProps) => {
   const geo = nodes.controller.geometry.clone();
 
   geo.computeVertexNormals();
-  console.log(geo.scale(0.2, 0.2, 0.2), "geo");
+  // console.log(geo.scale(0.2, 0.2, 0.2), "geo");
   const args: Triplet = [size, size, size];
   const [ref, { at }] = useBox(
     () => ({

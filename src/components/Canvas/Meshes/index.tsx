@@ -8,7 +8,7 @@ const Meshes = (props: any) => {
   return (
     <group>
       {/* <Room portal={props.portal} /> */}
-      <Girl scale={3} />
+      {/* <Girl scale={3} /> */}
     </group>
   );
 };
