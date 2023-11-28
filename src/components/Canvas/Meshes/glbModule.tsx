@@ -16,7 +16,13 @@ import {
   useRef,
   useState,
 } from "react";
-import THREE, { Color, DoubleSide, ShaderMaterial, Vector3 } from "three";
+import THREE, {
+  Color,
+  DoubleSide,
+  ShaderMaterial,
+  Vector2,
+  Vector3,
+} from "three";
 import {
   all_angry,
   all_fun,
@@ -131,6 +137,119 @@ const Girl = forwardRef((props: any, ref: any) => {
 });
 Girl.displayName = "Girl";
 
+const GirlScene = forwardRef((props: any, ref: any) => {
+  // const { scene, materials } = useGLTF("/coin-pusher.glb");
+
+  const { camera } = useThree();
+  const animationGroup = useRef<any>(null!);
+
+  const { scene, nodes, scenes, animations, materials } =
+    useGLTF("/new_scene.glb");
+
+  const { actions, mixer, clips } = useAnimations(animations);
+  const [currentClipIndex, setCurrentClipIndex] = useState(0);
+  const [nextClipIndex, setNextClipIndex] = useState(1);
+  const [transitionTime, setTransitionTime] = useState(0);
+  const [, set] = useControls(() => ({
+    angry: {
+      value: 0.5,
+      min: 0,
+      max: 1,
+      onChange: (value, type) => {
+        all_angry(nodes.Body, value);
+
+        // console.log(type, ":", value);
+      },
+    },
+    fun: {
+      value: 0,
+      min: 0,
+      max: 1,
+      onChange: (value, type) => {
+        all_fun(nodes.Body, value);
+
+        // console.log(type, ":", value);
+      },
+    },
+    joy: {
+      value: 0,
+      min: 0,
+      max: 1,
+      onChange: (value, type) => {
+        all_joy(nodes.Body, value);
+
+        // console.log(type, ":", value);
+      },
+    },
+    sorrow: {
+      value: 0,
+      min: 0,
+      max: 1,
+      onChange: (value, type) => {
+        all_sorrow(nodes.Body, value);
+
+        // console.log(type, ":", value);
+      },
+    },
+    surprised: {
+      value: 0.1,
+      min: 0.1,
+      max: 1,
+      onChange: (value, type) => {
+        all_surprised(nodes.Body, value);
+
+        // console.log(type, ":", value);
+      },
+    },
+  }));
+
+  useLayoutEffect(() => {
+    // nodes.Head.lookAt(camera.position);
+    console.log(actions);
+    // mesh.material.map.transformUv(new Vector2(1, -1));
+    const materialWall = materials.wall as any;
+    materialWall.map.rotation = Math.PI / 2;
+
+    materialWall.map.repeat = { x: 5, y: 1 };
+    // materialWall.repeat =
+    // mesh.map.transformUv(new Vector2(1, -1));
+    materialWall.map.needsUpdate = true;
+    // console.log(materials.wall.map.wrapT, "!!!");
+  }, []);
+
+  useEffect(() => {
+    // const chilrenNode: any = nodes.Body.children[1];
+    // const morphsIndex = sliceObject(chilrenNode.morphTargetDictionary, 0, 5);
+    // const morphsInfos = chilrenNode.morphTargetInfluences;
+    // set({
+    //   angry: morphsInfos[morphsIndex["Fcl_ALL_Angry"]],
+    //   fun: morphsInfos[morphsIndex["Fcl_ALL_Fun"]],
+    //   joy: morphsInfos[morphsIndex["Fcl_ALL_Joy"]],
+    //   sorrow: morphsInfos[morphsIndex["Fcl_ALL_Sorrow"]],
+    //   surprised: morphsInfos[morphsIndex["Fcl_ALL_Surprised"]],
+    // });
+  }, []);
+
+  useEffect(() => {
+    // actions[clips[currentClipIndex].name].reset().fadeIn(0.5).play();
+  }, [actions, clips, currentClipIndex]);
+
+  return (
+    <group>
+      <primitive
+        ref={ref}
+        name="girl"
+        object={scene}
+        {...props}
+        // onClick={(e) => props.setTarget(e.object)}
+        // onPointerOver={() => setHovered(true)}
+        // onPointerOut={() => setHovered(false)}
+      />
+    </group>
+  );
+});
+GirlScene.displayName = "GirlScene";
+
 // const { scene, materials } = useGLTF("/coin-pusher.glb");
 const Room = (props: any) => {
   const { scene, materials, nodes }: any = useGLTF("/room.glb");
@@ -193,4 +312,4 @@ const Room = (props: any) => {
   );
 };
 
-export { Room, Girl };
+export { Room, Girl, GirlScene };

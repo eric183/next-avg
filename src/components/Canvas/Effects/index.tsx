@@ -25,7 +25,7 @@ const Effects = () => {
         bokehScale={1.2}
         height={4000}
       />
-      <Glitch
+      {/* <Glitch
         delay={new Vector2().fromArray([3.5, 7.5])} // min and max glitch delay
         // duration={new Vector2().fromArray([0.6, 1.0])} // min and max glitch duration
         duration={new Vector2().fromArray([1, 2])} // min and max glitch duration
@@ -34,7 +34,7 @@ const Effects = () => {
         mode={GlitchMode.SPORADIC} // glitch mode
         active // turn on/off the effect (switches between "mode" prop and GlitchMode.DISABLED)
         ratio={0.85} //
-      />
+      /> */}
       {/* <LUT lut={}/> */}
     </EffectComposer>
   );

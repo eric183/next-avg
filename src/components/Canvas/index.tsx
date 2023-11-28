@@ -12,7 +12,7 @@ import { instancedGeometry } from "./Meshes/instanceBoxes";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Color, Matrix4 } from "three";
 import { Background, SceneRig } from "./Scene";
-import { Girl } from "./Meshes/glbModule";
+import { Girl, GirlScene } from "./Meshes/glbModule";
 
 export const useStore = create((set: any) => ({
   target: null,
@@ -71,11 +71,20 @@ const CoinApp = ({ containerRef }: any) => {
         // camera.setRotationFromMatrix(
         //   new Matrix4().fromArray(cameraHistory.matrix)
         // );
-        return;
-        camera.rotation.fromArray([
-          -3.271702678108735e-32, 1.184517280015184, 2.0835417594699634e-16,
+        // return;
+
+        camera.position.fromArray([
+          1.9322642083444923, 1.0127677797154546, 2.5863695273995693,
         ]);
 
+        camera.rotation.fromArray([
+          -0.014162256468099037,
+
+          0.7868011787365924,
+
+          0.010028602132987351,
+        ]);
+        return;
         if (cameraHistory) {
           camera.position.fromArray(cameraHistory.position);
           camera.rotation.fromArray(cameraHistory.rotation);
@@ -85,23 +94,18 @@ const CoinApp = ({ containerRef }: any) => {
       <color attach="background" args={["black"]} />
       {/* <fog attach="fog" args={["#000", 5, 100]} /> */}
       <Background source="/images/sakura_temple.pngsdd" />
-
       <Lights />
-
       <Girl position={[0, 0, 0]} ref={GirlRef} />
-
+      <GirlScene position={[0, 0, 0]} />
       {/* <Meshes portal={containerRef} /> */}
       <Physics>
         <ReflectorPlane position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} />
         {/* <InstancedGeometry {...{ colors, number, size }} /> */}
         {/* <InstancedGeometryController {...{ colors, number, size }} /> */}
       </Physics>
-
       <Controls target={target} />
-
       <Preload all />
-
-      <SceneRig girlRef={GirlRef} />
+      <SceneRig girlRef={GirlRef} />a
       <Effects />
       <BakeShadows />
     </Canvas>
