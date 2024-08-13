@@ -66,7 +66,6 @@ const CoinApp = ({ containerRef }: any) => {
       onCreated={({ gl, camera }) => {
         const threeInfo: string = localStorage.getItem("threeInfo")!;
         const cameraHistory = JSON.parse(threeInfo);
-
         // camera.quaternion.fromArray(cameraHistory.quaternion);
         // camera.setRotationFromMatrix(
         //   new Matrix4().fromArray(cameraHistory.matrix)
@@ -105,7 +104,7 @@ const CoinApp = ({ containerRef }: any) => {
       </Physics>
       <Controls target={target} />
       <Preload all />
-      <SceneRig girlRef={GirlRef} />a
+      <SceneRig girlRef={GirlRef} />
       <Effects />
       <BakeShadows />
     </Canvas>
